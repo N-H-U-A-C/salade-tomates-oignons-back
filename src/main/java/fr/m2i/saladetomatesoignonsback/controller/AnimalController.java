@@ -9,6 +9,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,8 @@ public class AnimalController {
 
     @PostMapping()
     public ResponseEntity<Animal> save(@RequestBody Animal animal) {
-        return ResponseEntity.ok(animalService.saveOrUpdate(animal));
+        Animal savedAnimal = animalService.saveOrUpdate(animal);
+        // create a 201 response with the location of the resource created as internet standard RFC 9110
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAnimal.getId()).toUri()).build();
     }
 }
