@@ -1,12 +1,11 @@
 package fr.m2i.saladetomatesoignonsback.domain;
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 
 import java.util.Objects;
 import java.util.UUID;
 
-@Enabled
+@Entity
 @Table(name = "animal")
 public class Animal {
 
@@ -31,13 +30,5 @@ public class Animal {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Animal{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                '}';
     }
 }
