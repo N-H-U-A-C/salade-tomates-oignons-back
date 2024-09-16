@@ -1,5 +1,6 @@
 package fr.m2i.saladetomatesoignonsback.controller;
 
+import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.AnimalService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
 import org.springframework.data.domain.PageRequest;
@@ -7,10 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,5 +39,10 @@ public class AnimalController {
     public ResponseEntity<AnimalDto> getAnimalDtoById(@PathVariable UUID id) {
         Optional<AnimalDto> optionalAnimalDto = animalService.getAnimalDtoById(id);
         return optionalAnimalDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping()
+    public ResponseEntity<Animal> save(@RequestBody Animal animal) {
+        return ResponseEntity.ok(animalService.saveOrUpdate(animal));
     }
 }

@@ -28,4 +28,9 @@ public class AnimalServiceImpl implements AnimalService {
     public Optional<AnimalDto> getAnimalDtoById(UUID id) {
         return animalRepository.findAnimalDtoById(id);
     }
+
+    @Override
+    public Animal saveOrUpdate(Animal animal) {
+        return animalRepository.save(animal);
+    }
 }
