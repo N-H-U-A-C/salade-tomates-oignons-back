@@ -12,9 +12,10 @@ import java.util.UUID;
 
 public interface AnimalRepository extends CrudRepository<Animal, UUID>, PagingAndSortingRepository<Animal, UUID> {
 
+    // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto(
-                a.label as label
+                a.label
             )
             FROM Animal a
             """)
