@@ -48,4 +48,9 @@ public class AnimalController {
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAnimal.getId()).toUri()).build();
     }
+
+    @PutMapping()
+    public ResponseEntity<Animal> update(@RequestBody Animal animal) {
+        return ResponseEntity.ok(animalService.saveOrUpdate(animal));
+    }
 }
