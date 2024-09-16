@@ -1,10 +1,22 @@
 package fr.m2i.saladetomatesoignonsback.repository;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
 
 public interface AnimalRepository extends CrudRepository<Animal, UUID>, PagingAndSortingRepository<Animal, UUID> {
+
+    @Query("""
+            SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto(
+                a.label as label
+            )
+            FROM Animal a
+            """)
+    Slice<AnimalDto> findAllAnimalDto(Pageable pageable);
 }

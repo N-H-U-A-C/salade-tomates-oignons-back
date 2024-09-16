@@ -2,6 +2,7 @@ package fr.m2i.saladetomatesoignonsback.controller;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.AnimalService;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -24,13 +25,13 @@ public class AnimalController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Animal>> getAll(Pageable pageable) {
+    public ResponseEntity<List<AnimalDto>> getAllAnimalDto(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
-        Slice<Animal> slice = animalService.getAll(pageRequest);
+        Slice<AnimalDto> slice = animalService.getAllAnimalDto(pageRequest);
         return ResponseEntity.ok(slice.getContent());
     }
 }
