@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface AnimalRepository extends CrudRepository<Animal, UUID>, PagingAndSortingRepository<Animal, UUID> {
@@ -20,4 +21,13 @@ public interface AnimalRepository extends CrudRepository<Animal, UUID>, PagingAn
             FROM Animal a
             """)
     Slice<AnimalDto> findAllAnimalDto(Pageable pageable);
+
+    // constructor expression
+    @Query("""
+            SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto(
+                a.label
+            )
+            FROM Animal a WHERE a.id = :id
+            """)
+    Optional<AnimalDto> findAnimalDtoById(UUID id);
 }

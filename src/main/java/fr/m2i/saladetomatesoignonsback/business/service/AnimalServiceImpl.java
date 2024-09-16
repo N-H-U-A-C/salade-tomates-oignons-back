@@ -7,6 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class AnimalServiceImpl implements AnimalService {
 
@@ -19,5 +22,10 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public Slice<AnimalDto> getAllAnimalDto(Pageable pageable) {
         return animalRepository.findAllAnimalDto(pageable);
+    }
+
+    @Override
+    public Optional<AnimalDto> getAnimalDtoById(UUID id) {
+        return animalRepository.findAnimalDtoById(id);
     }
 }
