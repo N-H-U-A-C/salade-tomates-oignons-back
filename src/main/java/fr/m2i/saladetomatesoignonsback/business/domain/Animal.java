@@ -25,6 +25,14 @@ public class Animal {
         this.label = label;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
