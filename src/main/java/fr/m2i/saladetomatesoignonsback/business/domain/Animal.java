@@ -1,4 +1,4 @@
-package fr.m2i.saladetomatesoignonsback.domain;
+package fr.m2i.saladetomatesoignonsback.business.domain;
 
 import jakarta.persistence.*;
 
@@ -20,6 +20,11 @@ public class Animal {
     public Animal() {
     }
 
+    public Animal(UUID id, String label) {
+        this.id = id;
+        this.label = label;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -30,5 +35,13 @@ public class Animal {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                '}';
     }
 }
