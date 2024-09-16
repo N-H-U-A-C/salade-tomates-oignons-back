@@ -1,5 +1,6 @@
 package fr.m2i.saladetomatesoignonsback.business.service;
 
+import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.repository.AnimalRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,5 +45,17 @@ class AnimalServiceImplTest {
 
         // then
         verify(animalRepository).findAnimalDtoById(id);
+    }
+
+    @Test
+    void should_Call_SaveOrUpdate_Of_AnimalRepository() {
+        // given
+        Animal animal = new Animal("Gorille");
+
+        // when
+        classUnderTest.saveOrUpdate(animal);
+
+        // then
+        verify(animalRepository).save(animal);
     }
 }
