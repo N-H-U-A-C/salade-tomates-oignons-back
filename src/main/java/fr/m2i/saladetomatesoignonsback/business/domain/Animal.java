@@ -20,9 +20,13 @@ public class Animal {
     public Animal() {
     }
 
-    public Animal(UUID id, String label) {
-        this.id = id;
+    public Animal(String label) {
         this.label = label;
+    }
+
+    public Animal(UUID id, String label) {
+        this(label);
+        this.id = id;
     }
 
     public UUID getId() {
