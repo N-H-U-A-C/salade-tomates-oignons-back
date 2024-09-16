@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.UUID;
+
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,7 +23,7 @@ class AnimalServiceImplTest {
     private AnimalRepository animalRepository;
 
     @Test
-    void getAllAnimalDto() {
+    void should_Call_FindAllAnimalDto_Of_AnimalRepository() {
         // given
         Pageable pageable = PageRequest.of(0, 20, Sort.Direction.ASC, "label");
 
@@ -30,5 +32,17 @@ class AnimalServiceImplTest {
 
         // then
         verify(animalRepository).findAllAnimalDto(pageable);
+    }
+
+    @Test
+    void should_Call_FindAnimalDtoById_Of_AnimalRepository() {
+        // given
+        UUID id = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702969");
+
+        // when
+        classUnderTest.getAnimalDtoById(id);
+
+        // then
+        verify(animalRepository).findAnimalDtoById(id);
     }
 }
