@@ -1,5 +1,6 @@
 package fr.m2i.saladetomatesoignonsback.controller;
 
+import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -78,5 +79,18 @@ class AnimalControllerIT {
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
         assertThat(response.getBody()).isNull();
+    }
+
+    @Test
+    public void should_Return_Animal() throws JSONException {
+        // given
+        Animal animal = new Animal("Gorille");
+
+        // when
+        ResponseEntity<String> response = restTemplate.postForEntity("/v1/animals", animal, String.class);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getHeaders().getLocation()).isNotNull();
     }
 }
