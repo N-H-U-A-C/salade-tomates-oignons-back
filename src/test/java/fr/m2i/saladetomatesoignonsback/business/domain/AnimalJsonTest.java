@@ -50,12 +50,8 @@ class AnimalJsonTest {
         // given
 
         // when
-        System.out.println(animal);
-        System.out.println(animalJson);
         String result = this.objectMapper.writeValueAsString(animal);
-        String result2 = this.objectMapper.writeValueAsString(Math.PI);
         System.out.println(result);
-        System.out.println(result2);
 
         // then
         JSONAssert.assertEquals(animalJson, result, false);
