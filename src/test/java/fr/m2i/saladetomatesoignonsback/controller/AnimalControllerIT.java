@@ -18,7 +18,7 @@ class AnimalControllerIT {
     TestRestTemplate restTemplate;
 
     @Test
-    public void should_Return_First_Slice_Of_20_Animal_Dto_Sorted_By_Asc_Name() throws JSONException {
+    public void should_Return_First_Slice_Of_20_AnimalDto_Sorted_By_Asc_Name() throws JSONException {
         // given
         String expected = """
                 [
@@ -51,5 +51,31 @@ class AnimalControllerIT {
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         JSONAssert.assertEquals(expected, response.getBody(), true);
+    }
+
+    @Test
+    public void should_Return_Optional_Of_AnimalDto() throws JSONException {
+        // given
+        String expected = """
+                {"label": "Poule"}
+                """;
+
+        // when
+        ResponseEntity<String> response = restTemplate.getForEntity("/v1/animals/8adcb6de-5db4-42cf-8cf9-056d3b702969", String.class);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        JSONAssert.assertEquals(expected, response.getBody(), false);
+    }
+
+    @Test
+    public void should_Not_Return_Optional_Of_AnimalDto() throws JSONException {
+        // given
+
+        // when
+        ResponseEntity<String> response = restTemplate.getForEntity("/v1/animals/9adcb6de-5db4-42cf-8cf9-056d3b702969", String.class);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
