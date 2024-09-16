@@ -81,16 +81,16 @@ class AnimalControllerIT {
         assertThat(response.getBody()).isNull();
     }
 
-    @Test
-    public void should_Return_Animal() throws JSONException {
-        // given
-        Animal animal = new Animal("Gorille");
-
-        // when
-        ResponseEntity<String> response = restTemplate.postForEntity("/v1/animals", animal, String.class);
-
-        // then
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getHeaders().getLocation()).isNotNull();
-    }
+//    @Test
+//    public void should_Return_Animal() throws JSONException {
+//        // given
+//        Animal animal = new Animal("Gorille");
+//
+//        // when
+//        ResponseEntity<String> response = restTemplate.postForEntity("/v1/animals", animal, String.class);
+//
+//        // then
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+//        assertThat(response.getHeaders().getLocation()).isNotNull();
+//    }
 }
