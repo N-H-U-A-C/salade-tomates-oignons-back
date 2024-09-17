@@ -98,6 +98,24 @@ class AnimalControllerIT {
 //    }
 
 //    @Test
+//    public void update_Should_Return_Location() throws JSONException {
+//        // given
+//        UUID id = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702969");
+//        Animal animal = new Animal(id,"Put test");
+//        String expected = """
+//                {"label": "Put test"}
+//                """;
+//
+//        // when
+//        restTemplate.put("/v1/animals", animal, String.class);
+//        ResponseEntity<String> response = restTemplate.getForEntity("/v1/animals/" + id, String.class);
+//
+//        // then
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        JSONAssert.assertEquals(expected, response.getBody(), false);
+//    }
+
+//    @Test
 //    public void deleteById_Should_Return_NOT_FOUND() throws JSONException {
 //        // given
 //        UUID id = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702969");
