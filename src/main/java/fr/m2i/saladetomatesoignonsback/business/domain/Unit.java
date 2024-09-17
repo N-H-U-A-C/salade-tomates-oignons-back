@@ -36,13 +36,14 @@ public class Unit {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Unit unit)) return false;
-        return Objects.equals(id, unit.id);
+        if (!(o instanceof Unit)) return false;
+        Unit unit = (Unit) o;
+        return id != null && id.equals(unit.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return getClass().hashCode();
     }
 
     @Override
