@@ -1,6 +1,5 @@
 package fr.m2i.saladetomatesoignonsback.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.AnimalService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
@@ -18,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.net.URI;
 import java.util.List;
@@ -39,8 +37,6 @@ class AnimalControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private AnimalService animalService;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     private PageRequest defaultPageRequest;
     private UUID id;
@@ -232,8 +228,8 @@ class AnimalControllerTest {
 
         // when
         mockMvc.perform(MockMvcRequestBuilders.put(URI.create("/v1/animals"))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody));
 
         // then
         verify(animalService).saveOrUpdate(animalCaptor.capture());
