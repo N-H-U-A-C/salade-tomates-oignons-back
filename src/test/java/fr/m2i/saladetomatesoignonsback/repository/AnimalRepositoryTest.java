@@ -16,6 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 class AnimalRepositoryTest {
 
+    // TODO add 2 tests for getAnimalDtoById and customDeleteById
 //    @Autowired
 //    private AnimalRepository classUnderTest;
 //
