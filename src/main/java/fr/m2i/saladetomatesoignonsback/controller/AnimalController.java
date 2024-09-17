@@ -53,4 +53,14 @@ public class AnimalController {
     public ResponseEntity<Animal> update(@RequestBody Animal animal) {
         return ResponseEntity.ok(animalService.saveOrUpdate(animal));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+        if (animalService.deleteById(id) > 0) {
+            // create a 204 response with empty body as internet standard RFC 9110
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

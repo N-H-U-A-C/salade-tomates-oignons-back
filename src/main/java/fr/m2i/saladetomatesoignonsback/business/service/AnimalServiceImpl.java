@@ -33,4 +33,9 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal saveOrUpdate(Animal animal) {
         return animalRepository.save(animal);
     }
+
+    @Override
+    public int deleteById(UUID id) {
+        return animalRepository.customDeleteById(id);
+    }
 }

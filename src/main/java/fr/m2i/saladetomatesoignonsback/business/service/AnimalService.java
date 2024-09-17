@@ -15,4 +15,6 @@ public interface AnimalService {
     Optional<AnimalDto> getAnimalDtoById(UUID id);
 
     Animal saveOrUpdate(Animal animal);
+
+    int deleteById(UUID id);
 }
