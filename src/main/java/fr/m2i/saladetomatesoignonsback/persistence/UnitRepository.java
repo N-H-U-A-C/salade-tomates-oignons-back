@@ -18,6 +18,7 @@ public interface UnitRepository extends CrudRepository<Unit, UUID>, PagingAndSor
     // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.UnitDto(
+                u.id,
                 u.label
             )
             FROM Unit u
@@ -27,6 +28,7 @@ public interface UnitRepository extends CrudRepository<Unit, UUID>, PagingAndSor
     // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.UnitDto(
+                u.id,
                 u.label
             )
             FROM Unit u WHERE u.id = :id

@@ -10,6 +10,8 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @JsonTest
@@ -25,19 +27,20 @@ class AnimalDtoJsonTest {
 
     @BeforeEach
     public void setUp() {
-        animalDto = new AnimalDto("Dummy");
+        animalDto = new AnimalDto(UUID.fromString("19074414-d28d-4748-9ef9-c46923bb141d"),"Dummy");
         animalDtoJson = """
                 {
+                  "id": "19074414-d28d-4748-9ef9-c46923bb141d",
                   "label": "Dummy"
                 }
                 """;
         animalDtoArray = Arrays.array(
-                new AnimalDto("Test"),
-                new AnimalDto("Ok"));
+                new AnimalDto(UUID.fromString("19074414-d28d-4748-9ef9-c46923bb141d"),"Test"),
+                new AnimalDto(UUID.fromString("99b0bc6e-13d7-424c-bff8-fac75e975483"),"Ok"));
         animalDtoArrayJson = """
                 [
-                  {"label": "Test"},
-                  {"label": "Ok"}
+                  {"id": "19074414-d28d-4748-9ef9-c46923bb141d", "label": "Test"},
+                  {"id": "99b0bc6e-13d7-424c-bff8-fac75e975483", "label": "Ok"}
                 ]
                 """;
     }

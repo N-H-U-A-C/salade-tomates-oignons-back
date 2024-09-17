@@ -40,7 +40,8 @@ class AnimalControllerTest {
     private AnimalService animalService;
 
     private PageRequest defaultPageRequest;
-    private UUID id;
+    private UUID id1;
+    private UUID id2;
     private Animal animalWithoutId;
     private Animal animal;
 
@@ -57,14 +58,15 @@ class AnimalControllerTest {
     @BeforeEach
     public void setUp() {
         defaultPageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "label");
-        id = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702777");
+        id1 = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702777");
+        id2 = UUID.fromString("99b0bc6e-13d7-424c-bff8-fac75e975483");
         animalWithoutId = new Animal("Test");
-        animal = new Animal(id, "Test");
+        animal = new Animal(id1, "Test");
 
         slice = new SliceImpl<>(List.of(
-                new AnimalDto("Test"),
-                new AnimalDto("Ok")));
-        optionalAnimalDto = Optional.of(new AnimalDto("Toto"));
+                new AnimalDto(id1, "Test"),
+                new AnimalDto(id2,"Ok")));
+        optionalAnimalDto = Optional.of(new AnimalDto(id1,"Toto"));
     }
 
     // getAllAnimalDto
@@ -143,19 +145,19 @@ class AnimalControllerTest {
     @Test
     public void getAnimalDtoById_Should_Call_GetAnimalDtoById_Of_AnimalService() {
         // given
-        when(animalService.getAnimalDtoById(id)).thenReturn(optionalAnimalDto);
+        when(animalService.getAnimalDtoById(id1)).thenReturn(optionalAnimalDto);
 
         // when
-        classUnderTest.getAnimalDtoById(id);
+        classUnderTest.getAnimalDtoById(id1);
 
         // then
-        verify(animalService).getAnimalDtoById(id);
+        verify(animalService).getAnimalDtoById(id1);
     }
 
     @Test
     public void update_Id_Should_Be_8adcb6de_5db4_42cf_8cf9_056d3b702777() throws Exception {
         // given
-        when(animalService.getAnimalDtoById(id)).thenReturn(optionalAnimalDto);
+        when(animalService.getAnimalDtoById(id1)).thenReturn(optionalAnimalDto);
 
         // when
         mockMvc.perform(get("/v1/animals/8adcb6de-5db4-42cf-8cf9-056d3b702777"));
@@ -163,7 +165,7 @@ class AnimalControllerTest {
         // then
         verify(animalService).getAnimalDtoById(uuidCaptor.capture());
         UUID usedId = uuidCaptor.getValue();
-        assertThat(usedId).isEqualTo(id);
+        assertThat(usedId).isEqualTo(id1);
     }
 
     // save
@@ -242,19 +244,19 @@ class AnimalControllerTest {
     @Test
     public void deleteById_Should_Call_DeleteById_Of_AnimalService() {
         // given
-        when(animalService.deleteById(id)).thenReturn(1);
+        when(animalService.deleteById(id1)).thenReturn(1);
 
         // when
-        classUnderTest.deleteById(id);
+        classUnderTest.deleteById(id1);
 
         // then
-        verify(animalService).deleteById(id);
+        verify(animalService).deleteById(id1);
     }
 
     @Test
     public void deleteById_Id_Should_Be_8adcb6de_5db4_42cf_8cf9_056d3b702777() throws Exception {
         // given
-        when(animalService.deleteById(id)).thenReturn(1);
+        when(animalService.deleteById(id1)).thenReturn(1);
 
         // when
         mockMvc.perform(delete("/v1/animals/8adcb6de-5db4-42cf-8cf9-056d3b702777"));
@@ -262,6 +264,6 @@ class AnimalControllerTest {
         // then
         verify(animalService).deleteById(uuidCaptor.capture());
         UUID usedId = uuidCaptor.getValue();
-        assertThat(usedId).isEqualTo(id);
+        assertThat(usedId).isEqualTo(id1);
     }
 }

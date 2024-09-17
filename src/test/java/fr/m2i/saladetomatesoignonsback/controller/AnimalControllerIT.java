@@ -26,26 +26,26 @@ class AnimalControllerIT {
         // given
         String expected = """
                 [
-                {"label": "Agneau"},
-                {"label": "Bison"},
-                {"label": "Bœuf"},
-                {"label": "Canard"},
-                {"label": "Cerf"},
-                {"label": "Cheval"},
-                {"label": "Dinde"},
-                {"label": "Faisan"},
-                {"label": "Grenouille"},
-                {"label": "Huître"},
-                {"label": "Lapin"},
-                {"label": "Moule"},
-                {"label": "Mouton"},
-                {"label": "Oie"},
-                {"label": "Pintade"},
-                {"label": "Porc"},
-                {"label": "Poule"},
-                {"label": "Sanglier"},
-                {"label": "Saumon"},
-                {"label": "Truite"}
+                {"id": "39adf80f-50da-4af9-bc82-b9a2892822c8","label": "Agneau"},
+                {"id": "a0fab814-cea4-4417-9a62-1929fef64a43","label": "Bison"},
+                {"id": "5e05a91f-94f2-4f61-8bd5-3539c6148cc1","label": "Bœuf"},
+                {"id": "02e875a0-72bf-4f19-8657-4e1d3325fc91","label": "Canard"},
+                {"id": "23b977a3-b3ba-40c5-ab3d-2af62a2a500f","label": "Cerf"},
+                {"id": "1a93aa6c-1d16-49df-a626-f56b7c0e709f","label": "Cheval"},
+                {"id": "c8a94fc5-311b-4a57-a77f-b85e47460708","label": "Dinde"},
+                {"id": "722c833b-791b-490d-8a6d-ce5ce755ce19","label": "Faisan"},
+                {"id": "ec834681-dbc3-400c-b7dd-5387d956f795","label": "Grenouille"},
+                {"id": "2eb1c5eb-d46e-481f-a18f-c520e8a40248","label": "Huître"},
+                {"id": "ca7597ca-0482-4919-8cfd-74d489805d77","label": "Lapin"},
+                {"id": "734595b8-a181-4b4c-a067-4c71f838911d","label": "Moule"},
+                {"id": "e0a4c668-4fa8-4eac-a482-9777126b009d","label": "Mouton"},
+                {"id": "7baa2d1d-45f0-48b4-91ab-da8b5a4bb92b","label": "Oie"},
+                {"id": "ec866d40-86ba-4a54-85da-cd435b4daf00","label": "Pintade"},
+                {"id": "6c6da8eb-7f4e-4c88-b190-7adf39156de7","label": "Porc"},
+                {"id": "8adcb6de-5db4-42cf-8cf9-056d3b702969","label": "Poule"},
+                {"id": "c2f4115f-7c8d-4b71-834f-9cc89205da06","label": "Sanglier"},
+                {"id": "84a3d090-98ec-434a-87fb-a63a265ed81f","label": "Saumon"},
+                {"id": "85166f35-482e-4a56-a8e6-10a779a63dd6","label": "Truite"}
                 ]
                 """;
 

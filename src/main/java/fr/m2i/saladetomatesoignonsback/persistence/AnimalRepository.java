@@ -18,6 +18,7 @@ public interface AnimalRepository extends CrudRepository<Animal, UUID>, PagingAn
     // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto(
+                a.id,
                 a.label
             )
             FROM Animal a
@@ -27,6 +28,7 @@ public interface AnimalRepository extends CrudRepository<Animal, UUID>, PagingAn
     // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto(
+                a.id,
                 a.label
             )
             FROM Animal a WHERE a.id = :id
