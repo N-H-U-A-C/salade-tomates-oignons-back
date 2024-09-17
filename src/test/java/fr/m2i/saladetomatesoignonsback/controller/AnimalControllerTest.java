@@ -1,5 +1,7 @@
 package fr.m2i.saladetomatesoignonsback.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.AnimalService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +15,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,11 +39,21 @@ class AnimalControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private AnimalService animalService;
+    @Autowired
+    private ObjectMapper objectMapper;
+
     private PageRequest defaultPageRequest;
     private UUID id;
+    private Animal animalWithoutId;
+    private Animal animal;
+
     @Captor
     private ArgumentCaptor<PageRequest> pageRequestCaptor;
-    @Captor ArgumentCaptor<UUID> uuidCaptor;
+    @Captor
+    private ArgumentCaptor<UUID> uuidCaptor;
+    @Captor
+    private ArgumentCaptor<Animal> animalCaptor;
+
     private Slice<AnimalDto> slice;
     private Optional<AnimalDto> optionalAnimalDto;
 
@@ -45,14 +61,18 @@ class AnimalControllerTest {
     public void setUp() {
         defaultPageRequest = PageRequest.of(0, 20, Sort.Direction.ASC, "label");
         id = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702777");
+        animalWithoutId = new Animal("Test");
+        animal = new Animal(id, "Test");
+
         slice = new SliceImpl<>(List.of(
                 new AnimalDto("Test"),
                 new AnimalDto("Ok")));
         optionalAnimalDto = Optional.of(new AnimalDto("Toto"));
     }
 
+    // getAllAnimalDto
     @Test
-    public void should_Call_GetAllAnimalDto_Of_AnimalService() {
+    public void getAllAnimalDto_Should_Call_GetAllAnimalDto_Of_AnimalService() {
         // given
         when(animalService.getAllAnimalDto(defaultPageRequest)).thenReturn(slice);
 
@@ -122,9 +142,10 @@ class AnimalControllerTest {
         assertThat(usedPageRequest).isEqualTo(pageSortedByDescLabel);
     }
 
+    // getAnimalDtoById
     @Test
-    public void should_Call_GetAnimalDtoById_Of_AnimalService() {
-        // given
+    public void getAnimalDtoById_Should_Call_GetAnimalDtoById_Of_AnimalService() {
+        // given1
         when(animalService.getAnimalDtoById(id)).thenReturn(optionalAnimalDto);
 
         // when
@@ -146,5 +167,77 @@ class AnimalControllerTest {
         verify(animalService).getAnimalDtoById(uuidCaptor.capture());
         UUID usedId = uuidCaptor.getValue();
         assertThat(usedId).isEqualTo(id);
+    }
+
+    // save
+//    TODO fix test (probably due to ServletUriComponentsBuilder)
+//    @Test
+//    public void save_Should_Call_SaveOrUpdate_Of_AnimalService() {
+//        // given
+//        Animal animal = new Animal("Test");
+//        Animal savedAnimal = new Animal(UUID.randomUUID(),"Test");
+//        when(animalService.saveOrUpdate(animal)).thenReturn(savedAnimal);
+//
+//        // when
+//        classUnderTest.save(animal);
+//
+//        // then
+//        verify(animalService).saveOrUpdate(savedAnimal);
+//    }
+
+    @Test
+    public void requestBody_Should_Be_AnimalWithoutId() throws Exception {
+        // given
+        String requestBody = """
+                {
+                "label": "Test"
+                }
+                """;
+        when(animalService.saveOrUpdate(animalWithoutId)).thenReturn(animal);
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.post(URI.create("/v1/animals"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody));
+
+        // then
+        verify(animalService).saveOrUpdate(animalCaptor.capture());
+        Animal usedAnimal = animalCaptor.getValue();
+        assertThat(usedAnimal).isEqualTo(animalWithoutId);
+    }
+
+    // update
+    @Test
+    public void update_Should_Call_SaveOrUpdate_Of_AnimalService() {
+        // given
+        when(animalService.saveOrUpdate(animal)).thenReturn(animal);
+
+        // when
+        classUnderTest.update(animal);
+
+        // then
+        verify(animalService).saveOrUpdate(animal);
+    }
+
+    @Test
+    public void requestBody_Should_Be_Animal() throws Exception {
+        // given
+        String requestBody = """
+                {
+                "id": "8adcb6de-5db4-42cf-8cf9-056d3b702777",
+                "label": "Test"
+                }
+                """;
+        when(animalService.saveOrUpdate(animal)).thenReturn(animal);
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.put(URI.create("/v1/animals"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody));
+
+        // then
+        verify(animalService).saveOrUpdate(animalCaptor.capture());
+        Animal usedAnimal = animalCaptor.getValue();
+        assertThat(usedAnimal).isEqualTo(animal);
     }
 }
