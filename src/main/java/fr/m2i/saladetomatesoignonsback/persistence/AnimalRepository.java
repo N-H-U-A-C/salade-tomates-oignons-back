@@ -1,4 +1,4 @@
-package fr.m2i.saladetomatesoignonsback.repository;
+package fr.m2i.saladetomatesoignonsback.persistence;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;

@@ -2,7 +2,7 @@ package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
-import fr.m2i.saladetomatesoignonsback.repository.AnimalRepository;
+import fr.m2i.saladetomatesoignonsback.persistence.AnimalRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;

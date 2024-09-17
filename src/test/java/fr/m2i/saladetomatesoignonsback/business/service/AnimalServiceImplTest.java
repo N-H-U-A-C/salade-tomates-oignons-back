@@ -1,7 +1,7 @@
 package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
-import fr.m2i.saladetomatesoignonsback.repository.AnimalRepository;
+import fr.m2i.saladetomatesoignonsback.persistence.AnimalRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
