@@ -9,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +22,7 @@ class AnimalControllerIT {
     TestRestTemplate restTemplate;
 
     @Test
-    public void should_Return_First_Slice_Of_20_AnimalDto_Sorted_By_Asc_Name() throws JSONException {
+    public void getAllAnimalDto_Should_Return_First_Slice_Of_20_AnimalDto_Sorted_By_Asc_Name() throws JSONException {
         // given
         String expected = """
                 [
@@ -55,7 +58,7 @@ class AnimalControllerIT {
     }
 
     @Test
-    public void should_Return_Optional_Of_AnimalDto() throws JSONException {
+    public void getAnimalDtoById_Should_Return_Optional_Of_AnimalDto() throws JSONException {
         // given
         String expected = """
                 {"label": "Poule"}
@@ -70,7 +73,7 @@ class AnimalControllerIT {
     }
 
     @Test
-    public void should_Not_Return_Optional_Of_AnimalDto() throws JSONException {
+    public void getAnimalDtoById_Should_Not_Return_Optional_Of_AnimalDto() throws JSONException {
         // given
 
         // when
@@ -82,7 +85,7 @@ class AnimalControllerIT {
     }
 
 //    @Test
-//    public void should_Return_Animal() throws JSONException {
+//    public void save_Should_Return_Location() throws JSONException {
 //        // given
 //        Animal animal = new Animal("Gorille");
 //
@@ -92,5 +95,21 @@ class AnimalControllerIT {
 //        // then
 //        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 //        assertThat(response.getHeaders().getLocation()).isNotNull();
+//    }
+
+//    @Test
+//    public void deleteById_Should_Return_NOT_FOUND() throws JSONException {
+//        // given
+//        UUID id = UUID.fromString("8adcb6de-5db4-42cf-8cf9-056d3b702969");
+//
+//        // when
+//        restTemplate.delete("/v1/animals/" + id);
+//
+//        // then
+//        try {
+//            restTemplate.getForObject("/v1/animals/" + id, Animal.class);
+//        } catch (final HttpClientErrorException e) {
+//            assertThat(e.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+//        }
 //    }
 }
