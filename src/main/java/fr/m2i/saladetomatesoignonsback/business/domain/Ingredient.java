@@ -14,6 +14,8 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ingredient_id")
     private UUID id;
+    @Column(name = "ingredient_label")
+    private String label;
     @Column(name = "vegetarian")
     private boolean vegetarian;
     @Column(name = "vegan")
@@ -27,9 +29,11 @@ public class Ingredient {
 
     @ManyToOne
     @Nullable
+    @JoinColumn(name = "animal_id")
     private Animal animal;
 
     @ManyToOne
+    @JoinColumn(name = "unit_id")
     private Unit unit;
 
     public Ingredient() {
@@ -37,6 +41,10 @@ public class Ingredient {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public boolean isVegetarian() {
@@ -85,6 +93,7 @@ public class Ingredient {
     public String toString() {
         return "Ingredient{" +
                 "id=" + id +
+                ", label='" + label + '\'' +
                 ", vegetarian=" + vegetarian +
                 ", vegan=" + vegan +
                 ", glutenFree=" + glutenFree +
