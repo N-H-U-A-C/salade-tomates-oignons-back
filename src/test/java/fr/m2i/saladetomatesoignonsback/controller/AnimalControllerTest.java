@@ -26,6 +26,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @WebMvcTest(AnimalController.class)
@@ -141,7 +142,7 @@ class AnimalControllerTest {
     // getAnimalDtoById
     @Test
     public void getAnimalDtoById_Should_Call_GetAnimalDtoById_Of_AnimalService() {
-        // given1
+        // given
         when(animalService.getAnimalDtoById(id)).thenReturn(optionalAnimalDto);
 
         // when
@@ -152,7 +153,7 @@ class AnimalControllerTest {
     }
 
     @Test
-    public void id_Should_Be_8adcb6de_5db4_42cf_8cf9_056d3b702777() throws Exception {
+    public void update_Id_Should_Be_8adcb6de_5db4_42cf_8cf9_056d3b702777() throws Exception {
         // given
         when(animalService.getAnimalDtoById(id)).thenReturn(optionalAnimalDto);
 
@@ -235,5 +236,32 @@ class AnimalControllerTest {
         verify(animalService).saveOrUpdate(animalCaptor.capture());
         Animal usedAnimal = animalCaptor.getValue();
         assertThat(usedAnimal).isEqualTo(animal);
+    }
+
+    // deleteById
+    @Test
+    public void deleteById_Should_Call_DeleteById_Of_AnimalService() {
+        // given
+        when(animalService.deleteById(id)).thenReturn(1);
+
+        // when
+        classUnderTest.deleteById(id);
+
+        // then
+        verify(animalService).deleteById(id);
+    }
+
+    @Test
+    public void deleteById_Id_Should_Be_8adcb6de_5db4_42cf_8cf9_056d3b702777() throws Exception {
+        // given
+        when(animalService.deleteById(id)).thenReturn(1);
+
+        // when
+        mockMvc.perform(delete("/v1/animals/8adcb6de-5db4-42cf-8cf9-056d3b702777"));
+
+        // then
+        verify(animalService).deleteById(uuidCaptor.capture());
+        UUID usedId = uuidCaptor.getValue();
+        assertThat(usedId).isEqualTo(id);
     }
 }
