@@ -2,6 +2,7 @@ package fr.m2i.saladetomatesoignonsback.controller;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Account;
 import fr.m2i.saladetomatesoignonsback.business.service.AccountService;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -25,20 +26,20 @@ public class AccountController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Account>> getAll(Pageable pageable) {
+    public ResponseEntity<List<AccountDto>> getAccountDtoAll(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "username"))
         );
-        Slice<Account> slice = accountService.getAll(pageRequest);
+        Slice<AccountDto> slice = accountService.getAccountDtoAll(pageRequest);
         return ResponseEntity.ok(slice.getContent());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getById(@PathVariable UUID id) {
-        Optional<Account> optionalAccount = accountService.getById(id);
-        return optionalAccount.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<AccountDto> getAccountDtoById(@PathVariable UUID id) {
+        Optional<AccountDto> optionalAccountDto = accountService.getAccountDtoById(id);
+        return optionalAccountDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
