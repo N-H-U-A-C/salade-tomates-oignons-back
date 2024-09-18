@@ -1,5 +1,6 @@
 package fr.m2i.saladetomatesoignonsback.business.service.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 public record AccountDto(
@@ -7,6 +8,7 @@ public record AccountDto(
         String username,
         int defaultServing,
         String avatar,
-        boolean admin
+        boolean admin,
+        List<IngredientDto> ingredientsDto
 ) {
 }

@@ -11,5 +11,6 @@ public interface AccountMapper {
 
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
+    @Mapping(target = "ingredientsDto", source = "account.ingredients")
     AccountDto toDto(Account account);
 }
