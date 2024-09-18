@@ -1,6 +1,8 @@
 package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
+import fr.m2i.saladetomatesoignonsback.business.service.mapper.IngredientMapper;
 import fr.m2i.saladetomatesoignonsback.persistence.IngredientRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -19,13 +21,13 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Slice<Ingredient> getAll(Pageable pageable) {
-        return ingredientRepository.findAll(pageable);
+    public Slice<IngredientDto> getAllIngredientDto(Pageable pageable) {
+        return ingredientRepository.findAll(pageable).map(IngredientMapper.INSTANCE::toDto);
     }
 
     @Override
-    public Optional<Ingredient> getById(UUID id) {
-        return ingredientRepository.findById(id);
+    public Optional<IngredientDto> getIngredientDtoById(UUID id) {
+        return ingredientRepository.findById(id).map(IngredientMapper.INSTANCE::toDto);
     }
 
     @Override

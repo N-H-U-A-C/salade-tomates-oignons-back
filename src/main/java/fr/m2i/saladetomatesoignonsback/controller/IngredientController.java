@@ -2,6 +2,7 @@ package fr.m2i.saladetomatesoignonsback.controller;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
 import fr.m2i.saladetomatesoignonsback.business.service.IngredientService;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -25,19 +26,19 @@ public class IngredientController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Ingredient>> getAll(Pageable pageable) {
+    public ResponseEntity<List<IngredientDto>> getAllIngredientDto(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
-        Slice<Ingredient> slice = ingredientService.getAll(pageRequest);
+        Slice<IngredientDto> slice = ingredientService.getAllIngredientDto(pageRequest);
         return ResponseEntity.ok(slice.getContent());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Ingredient> getById(@PathVariable UUID id) {
-        Optional<Ingredient> optionalIngredient = ingredientService.getById(id);
+    public ResponseEntity<IngredientDto> getIngredientDtoById(@PathVariable UUID id) {
+        Optional<IngredientDto> optionalIngredient = ingredientService.getIngredientDtoById(id);
         return optionalIngredient.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
