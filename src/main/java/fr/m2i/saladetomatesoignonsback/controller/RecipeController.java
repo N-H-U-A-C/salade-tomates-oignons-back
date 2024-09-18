@@ -2,6 +2,7 @@ package fr.m2i.saladetomatesoignonsback.controller;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Recipe;
 import fr.m2i.saladetomatesoignonsback.business.service.RecipeService;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.RecipeDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -25,20 +26,20 @@ public class RecipeController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Recipe>> getAll(Pageable pageable) {
+    public ResponseEntity<List<RecipeDto>> getAllRecipeDto(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
-        Slice<Recipe> slice = recipeService.getAll(pageRequest);
+        Slice<RecipeDto> slice = recipeService.getAllRecipeDto(pageRequest);
         return ResponseEntity.ok(slice.getContent());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Recipe> getById(@PathVariable UUID id) {
-        Optional<Recipe> optionalRecipe = recipeService.getById(id);
-        return optionalRecipe.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<RecipeDto> getRecipeDtoById(@PathVariable UUID id) {
+        Optional<RecipeDto> optionalRecipeDto = recipeService.getRecipeDtoById(id);
+        return optionalRecipeDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()

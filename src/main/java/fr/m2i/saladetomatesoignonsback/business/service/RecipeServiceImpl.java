@@ -1,6 +1,8 @@
 package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Recipe;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.RecipeDto;
+import fr.m2i.saladetomatesoignonsback.business.service.mapper.RecipeMapper;
 import fr.m2i.saladetomatesoignonsback.persistence.RecipeRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -19,13 +21,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Slice<Recipe> getAll(Pageable pageable) {
-        return recipeRepository.findAll(pageable);
+    public Slice<RecipeDto> getAllRecipeDto(Pageable pageable) {
+        return recipeRepository.findAll(pageable).map(RecipeMapper.INSTANCE::toDto);
     }
 
     @Override
-    public Optional<Recipe> getById(UUID id) {
-        return recipeRepository.findById(id);
+    public Optional<RecipeDto> getRecipeDtoById(UUID id) {
+        return recipeRepository.findById(id).map(RecipeMapper.INSTANCE::toDto);
     }
 
     @Override
