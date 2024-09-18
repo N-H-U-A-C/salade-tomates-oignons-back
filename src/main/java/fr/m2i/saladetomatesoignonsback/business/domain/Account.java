@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -38,6 +39,12 @@ public class Account {
     @Column(name = "account_admin")
     private boolean admin;
 
+    @ManyToMany
+    @JoinTable(name = "filter_ingredient",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private List<Ingredient> ingredients;
+
     public Account() {
     }
 
@@ -68,6 +75,10 @@ public class Account {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 
     @Override
