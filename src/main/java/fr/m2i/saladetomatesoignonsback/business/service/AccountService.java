@@ -1,6 +1,7 @@
 package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Account;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
@@ -9,9 +10,9 @@ import java.util.UUID;
 
 public interface AccountService {
 
-    Slice<Account> getAll(Pageable pageable);
+    Slice<AccountDto> getAccountDtoAll(Pageable pageable);
 
-    Optional<Account> getById(UUID id);
+    Optional<AccountDto> getAccountDtoById(UUID id);
 
     Account saveOrUpdate(Account account);
 

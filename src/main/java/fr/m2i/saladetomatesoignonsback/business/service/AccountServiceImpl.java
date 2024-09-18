@@ -1,6 +1,8 @@
 package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Account;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountDto;
+import fr.m2i.saladetomatesoignonsback.business.service.mapper.AccountMapper;
 import fr.m2i.saladetomatesoignonsback.persistence.AccountRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -19,13 +21,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Slice<Account> getAll(Pageable pageable) {
-        return accountRepository.findAll(pageable);
+    public Slice<AccountDto> getAccountDtoAll(Pageable pageable) {
+        return accountRepository.findAll(pageable).map(AccountMapper.INSTANCE::toDto);
     }
 
     @Override
-    public Optional<Account> getById(UUID id) {
-        return accountRepository.findById(id);
+    public Optional<AccountDto> getAccountDtoById(UUID id) {
+        return accountRepository.findById(id).map(AccountMapper.INSTANCE::toDto);
     }
 
     @Override
