@@ -1,10 +1,13 @@
 package fr.m2i.saladetomatesoignonsback.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -40,6 +43,12 @@ public class Recipe {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @OneToMany(mappedBy = "recipe",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+
     public Recipe() {
     }
 
@@ -66,6 +75,10 @@ public class Recipe {
 
     public @Size(max = 500) String getPicture() {
         return picture;
+    }
+
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
 
     public Account getAccount() {
@@ -95,6 +108,7 @@ public class Recipe {
                 ", duration=" + duration +
                 ", picture='" + picture + '\'' +
                 ", account=" + account +
+                ", recipeIngredients=" + recipeIngredients +
                 '}';
     }
 }
