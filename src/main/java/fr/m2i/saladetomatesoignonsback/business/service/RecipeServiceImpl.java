@@ -22,12 +22,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Slice<RecipeDto> getAllRecipeDto(Pageable pageable) {
-        return recipeRepository.findAll(pageable).map(RecipeMapper.INSTANCE::toDto);
+        return recipeRepository.findAll(pageable).map(RecipeMapper.INSTANCE::toRecipeDto);
     }
 
     @Override
     public Optional<RecipeDto> getRecipeDtoById(UUID id) {
-        return recipeRepository.findById(id).map(RecipeMapper.INSTANCE::toDto);
+        return recipeRepository.findById(id).map(RecipeMapper.INSTANCE::toRecipeDto);
     }
 
     @Override

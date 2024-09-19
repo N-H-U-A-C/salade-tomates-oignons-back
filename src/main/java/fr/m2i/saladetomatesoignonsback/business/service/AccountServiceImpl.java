@@ -22,12 +22,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Slice<AccountDto> getAccountDtoAll(Pageable pageable) {
-        return accountRepository.findAll(pageable).map(AccountMapper.INSTANCE::toDto);
+        return accountRepository.findAll(pageable).map(AccountMapper.INSTANCE::toAccountDto);
     }
 
     @Override
     public Optional<AccountDto> getAccountDtoById(UUID id) {
-        return accountRepository.findById(id).map(AccountMapper.INSTANCE::toDto);
+        return accountRepository.findById(id).map(AccountMapper.INSTANCE::toAccountDto);
     }
 
     @Override

@@ -22,12 +22,12 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Slice<IngredientDto> getAllIngredientDto(Pageable pageable) {
-        return ingredientRepository.findAll(pageable).map(IngredientMapper.INSTANCE::toDto);
+        return ingredientRepository.findAll(pageable).map(IngredientMapper.INSTANCE::toIngredientDto);
     }
 
     @Override
     public Optional<IngredientDto> getIngredientDtoById(UUID id) {
-        return ingredientRepository.findById(id).map(IngredientMapper.INSTANCE::toDto);
+        return ingredientRepository.findById(id).map(IngredientMapper.INSTANCE::toIngredientDto);
     }
 
     @Override
