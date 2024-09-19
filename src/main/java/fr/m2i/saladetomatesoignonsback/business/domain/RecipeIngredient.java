@@ -18,7 +18,7 @@ public class RecipeIngredient {
 
     @Column(name = "quantity")
     @Positive
-    private int quantity;
+    private double quantity;
 
     @Column(name = "consumed")
     private boolean consumed;
@@ -48,7 +48,7 @@ public class RecipeIngredient {
     }
 
     @Positive
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
