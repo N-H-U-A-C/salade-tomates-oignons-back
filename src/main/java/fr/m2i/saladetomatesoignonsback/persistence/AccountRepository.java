@@ -18,6 +18,6 @@ public interface AccountRepository extends CrudRepository<Account, UUID>, Paging
     @Query(value = "DELETE FROM Account a where a.id = :id")
     int customDeleteById(UUID id);
 
-    @Query("FROM Account a LEFT JOIN a.ingredients i LEFT JOIN FETCH a.accountIngredients ai")
+    @Query("FROM Account a LEFT JOIN a.ingredients i LEFT JOIN a.accountIngredients ai")
     Page<Account> customFindAll(Pageable pageable);
 }

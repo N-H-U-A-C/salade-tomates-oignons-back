@@ -10,5 +10,5 @@ public interface RecipeMapper {
 
     RecipeMapper INSTANCE = Mappers.getMapper(RecipeMapper.class);
 
-    RecipeDto toDto(Recipe recipe);
+    RecipeDto toRecipeDto(Recipe recipe);
 }

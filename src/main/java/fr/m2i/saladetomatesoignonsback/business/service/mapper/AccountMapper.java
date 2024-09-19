@@ -6,12 +6,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = {IngredientMapper.class, AccountIngredientMapper.class})
 public interface AccountMapper {
 
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
-    @Mapping(target = "ingredientsDto", source = "account.ingredients")
-    @Mapping(target = "accountIngredientsDto", source = "account.accountIngredients")
-    AccountDto toDto(Account account);
+    @Mapping(target = "ingredientsDto", source = "ingredients")
+    @Mapping(target = "accountIngredientsDto", source = "accountIngredients")
+    AccountDto toAccountDto(Account account);
 }
