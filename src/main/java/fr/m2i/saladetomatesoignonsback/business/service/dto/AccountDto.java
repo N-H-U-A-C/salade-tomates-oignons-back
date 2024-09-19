@@ -10,6 +10,7 @@ public record AccountDto(
         String avatar,
         boolean admin,
         List<IngredientDto> ingredientsDto,
-        List<AccountIngredientDto> accountIngredientsDto
+        List<AccountIngredientDto> accountIngredientsDto,
+        List<AccountRecipeDto> accountRecipesDto
 ) {
 }
