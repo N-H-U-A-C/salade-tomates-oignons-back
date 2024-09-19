@@ -58,6 +58,12 @@ public class Account {
     @JsonManagedReference
     private List<AccountIngredient> accountIngredients = new ArrayList<>();
 
+    @OneToMany(mappedBy = "account",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<AccountRecipe> accountRecipes = new ArrayList<>();
+
     public Account() {
     }
 
@@ -98,6 +104,10 @@ public class Account {
         return accountIngredients;
     }
 
+    public List<AccountRecipe> getAccountRecipes() {
+        return accountRecipes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,6 +133,7 @@ public class Account {
                 ", admin=" + admin +
                 ", ingredients=" + ingredients +
                 ", accountIngredients=" + accountIngredients +
+                ", accountRecipes=" + accountRecipes +
                 '}';
     }
 }
