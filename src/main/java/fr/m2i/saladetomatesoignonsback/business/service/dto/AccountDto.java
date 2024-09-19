@@ -9,6 +9,7 @@ public record AccountDto(
         int defaultServing,
         String avatar,
         boolean admin,
-        List<IngredientDto> ingredientsDto
+        List<IngredientDto> ingredientsDto,
+        List<AccountIngredientDto> accountIngredientsDto
 ) {
 }
