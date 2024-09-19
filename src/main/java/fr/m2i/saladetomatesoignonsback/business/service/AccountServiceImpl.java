@@ -22,7 +22,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Slice<AccountDto> getAccountDtoAll(Pageable pageable) {
-        return accountRepository.customFindAll(pageable).map(AccountMapper.INSTANCE::toAccountDto);
+        return accountRepository.findAll(pageable).map(AccountMapper.INSTANCE::toAccountDto);
     }
 
     @Override
