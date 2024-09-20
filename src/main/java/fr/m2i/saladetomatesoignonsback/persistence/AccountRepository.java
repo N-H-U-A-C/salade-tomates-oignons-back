@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface AccountRepository extends CrudRepository<Account, UUID>, PagingAndSortingRepository<Account, UUID> {
@@ -15,4 +16,6 @@ public interface AccountRepository extends CrudRepository<Account, UUID>, Paging
     @Modifying
     @Query(value = "DELETE FROM Account a where a.id = :id")
     int customDeleteById(UUID id);
+
+    Optional<Account> findByUsernameAndPassword(String username, String password);
 }
