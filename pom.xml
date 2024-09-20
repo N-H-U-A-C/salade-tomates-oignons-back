@@ -11,7 +11,7 @@
 	<groupId>fr.m2i</groupId>
 	<artifactId>salade-tomates-oignons-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>salade-tomates-oignons-back</name>
 	<description>salade-tomates-oignons-back</description>
 	<url/>
