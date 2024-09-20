@@ -18,5 +18,4 @@ public interface AccountRepository extends CrudRepository<Account, UUID>, Paging
     int customDeleteById(UUID id);
 
     Optional<Account> findByUsernameAndPassword(String username, String password);
-
 }
