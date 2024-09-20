@@ -3,6 +3,8 @@ package fr.m2i.saladetomatesoignonsback.controller;
 import fr.m2i.saladetomatesoignonsback.business.domain.Account;
 import fr.m2i.saladetomatesoignonsback.business.service.AccountService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountLogInDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountLoggedDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -62,5 +64,11 @@ public class AccountController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<AccountLoggedDto> logIn(@RequestBody AccountLogInDto accountLogInDto) {
+        Optional<AccountLoggedDto> optionalAccountLoggedDto = accountService.logIn(accountLogInDto);
+        return optionalAccountLoggedDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

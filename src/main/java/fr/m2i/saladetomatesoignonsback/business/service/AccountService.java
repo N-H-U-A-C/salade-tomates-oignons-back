@@ -2,6 +2,8 @@ package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Account;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountLogInDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountLoggedDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
@@ -17,4 +19,6 @@ public interface AccountService {
     Account saveOrUpdate(Account account);
 
     int deleteById(UUID id);
+
+    Optional<AccountLoggedDto> logIn(AccountLogInDto accountLogInDto);
 }
