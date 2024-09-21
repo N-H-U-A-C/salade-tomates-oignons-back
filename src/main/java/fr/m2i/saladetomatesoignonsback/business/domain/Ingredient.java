@@ -1,29 +1,52 @@
 package fr.m2i.saladetomatesoignonsback.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "ingredient")
 public class Ingredient {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "ingredient_id")
+    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "ingredient_id")
     private UUID id;
+
     @Column(name = "ingredient_label")
     private String label;
+
     @Column(name = "vegetarian")
     private boolean vegetarian;
+
     @Column(name = "vegan")
     private boolean vegan;
+
     @Column(name = "gluten_free")
     private boolean glutenFree;
+
     @Column(name = "lactose_free")
     private boolean lactoseFree;
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", vegetarian=" + vegetarian +
+                ", vegan=" + vegan +
+                ", glutenFree=" + glutenFree +
+                ", lactoseFree=" + lactoseFree +
+                ", calorie=" + calorie +
+                ", animal=" + animal +
+                ", unit=" + unit +
+                ", accounts=" + accounts +
+                ", accountIngredients=" + accountIngredients +
+                '}';
+    }
+
     @Column(name = "calorie")
     private int calorie;
 
@@ -35,6 +58,18 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
+
+    @ManyToMany
+    @JoinTable(name = "filter_ingredient",
+            joinColumns = @JoinColumn(name = "ingredient_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id"))
+    private List<Account> accounts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ingredient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<AccountIngredient> accountIngredients = new ArrayList<>();
 
     public Ingredient() {
     }
@@ -76,6 +111,14 @@ public class Ingredient {
         return unit;
     }
 
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public List<AccountIngredient> getAccountIngredients() {
+        return accountIngredients;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,18 +132,4 @@ public class Ingredient {
         return getClass().hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                ", vegetarian=" + vegetarian +
-                ", vegan=" + vegan +
-                ", glutenFree=" + glutenFree +
-                ", lactoseFree=" + lactoseFree +
-                ", calorie=" + calorie +
-                ", animal=" + animal +
-                ", unit=" + unit +
-                '}';
-    }
 }

@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = {AccountMapper.class, AccountIngredientMapper.class})
 public interface IngredientMapper {
 
     IngredientMapper INSTANCE = Mappers.getMapper(IngredientMapper.class);
@@ -17,6 +17,8 @@ public interface IngredientMapper {
     @Mapping(target = "animalLabel", source = "ingredient.animal.label")
     @Mapping(target = "unitId", source = "ingredient.unit.id")
     @Mapping(target = "unitLabel", source = "ingredient.unit.label")
+    @Mapping(target = "accountsDto", source = "accounts")
+    @Mapping(target = "accountIngredientsDto", source = "accountIngredients")
     IngredientDto toIngredientDto(Ingredient ingredient);
 
     List<IngredientDto> toIngredientsDto(List<Ingredient> ingredients);

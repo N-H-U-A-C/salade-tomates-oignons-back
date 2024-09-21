@@ -1,29 +1,31 @@
 package fr.m2i.saladetomatesoignonsback.business.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "account")
 public class Account {
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "account_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "account_id")
     private UUID id;
 
     @Column(name = "username")
-    @NotBlank @Size(max = 20)
+    @NotBlank
+    @Size(max = 20)
     private String username;
 
     @Column(name = "mail")
-    @NotBlank @Email @Size(max = 50)
+    @NotBlank
+    @Email
+    @Size(max = 50)
     private String email;
 
     @Column(name = "account_password")
@@ -40,24 +42,6 @@ public class Account {
 
     @Column(name = "account_admin")
     private boolean admin;
-
-    @ManyToMany
-    @JoinTable(name = "filter_ingredient",
-            joinColumns = @JoinColumn(name = "account_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-    private List<Ingredient> ingredients = new ArrayList<>();
-
-    @OneToMany(mappedBy = "account",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonManagedReference
-    private List<AccountIngredient> accountIngredients = new ArrayList<>();
-
-    @OneToMany(mappedBy = "account",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JsonManagedReference
-    private List<AccountRecipe> accountRecipes = new ArrayList<>();
 
     public Account() {
     }
@@ -91,18 +75,6 @@ public class Account {
         return admin;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public List<AccountIngredient> getAccountIngredients() {
-        return accountIngredients;
-    }
-
-    public List<AccountRecipe> getAccountRecipes() {
-        return accountRecipes;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,9 +98,6 @@ public class Account {
                 ", defaultServing=" + defaultServing +
                 ", avatar='" + avatar + '\'' +
                 ", admin=" + admin +
-                ", ingredients=" + ingredients +
-                ", accountIngredients=" + accountIngredients +
-                ", accountRecipes=" + accountRecipes +
                 '}';
     }
 }

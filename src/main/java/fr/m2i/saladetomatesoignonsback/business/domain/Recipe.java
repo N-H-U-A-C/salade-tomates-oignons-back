@@ -14,14 +14,11 @@ import java.util.UUID;
 @Table(name = "recipe")
 public class Recipe {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "recipe_id")
+    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "recipe_id")
     private UUID id;
 
     @Column(name = "recipe_label")
-    @NotBlank
-    @Size(max = 60)
+    @NotBlank @Size(max = 60)
     private String label;
 
     @Column(name = "recipe_public")
@@ -48,6 +45,12 @@ public class Recipe {
             orphanRemoval = true)
     @JsonManagedReference
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recipe",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<AccountRecipe> accountRecipes = new ArrayList<>();
 
     public Recipe() {
     }
@@ -85,6 +88,10 @@ public class Recipe {
         return account;
     }
 
+    public List<AccountRecipe> getAccountRecipes() {
+        return accountRecipes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,6 +116,7 @@ public class Recipe {
                 ", picture='" + picture + '\'' +
                 ", account=" + account +
                 ", recipeIngredients=" + recipeIngredients +
+                ", accountRecipes=" + accountRecipes +
                 '}';
     }
 }
