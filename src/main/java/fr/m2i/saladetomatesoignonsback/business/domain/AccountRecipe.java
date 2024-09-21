@@ -27,12 +27,12 @@ public class AccountRecipe {
     @ManyToOne()
     @JoinColumn(name = "account_id")
     @MapsId("accountId")
-    @JsonBackReference
     private Account account;
 
     @ManyToOne()
     @JoinColumn(name = "recipe_id")
     @MapsId("recipeId")
+    @JsonBackReference
     private Recipe recipe;
 
     protected AccountRecipe() {

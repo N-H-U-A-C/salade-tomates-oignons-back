@@ -21,12 +21,12 @@ public class AccountIngredient {
     @ManyToOne()
     @JoinColumn(name = "account_id")
     @MapsId("accountId")
-    @JsonBackReference
     private Account account;
 
     @ManyToOne()
     @JoinColumn(name = "ingredient_id")
     @MapsId("ingredientId")
+    @JsonBackReference
     private Ingredient ingredient;
 
     protected AccountIngredient() {

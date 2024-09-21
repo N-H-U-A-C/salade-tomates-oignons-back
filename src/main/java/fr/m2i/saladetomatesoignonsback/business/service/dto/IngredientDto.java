@@ -1,5 +1,6 @@
 package fr.m2i.saladetomatesoignonsback.business.service.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 public record IngredientDto(
@@ -13,6 +14,8 @@ public record IngredientDto(
         UUID animalId,
         String animalLabel,
         UUID unitId,
-        String unitLabel
+        String unitLabel,
+        List<AccountDto> accountsDto,
+        List<AccountIngredientDto> accountIngredientsDto
 ) {
 }
