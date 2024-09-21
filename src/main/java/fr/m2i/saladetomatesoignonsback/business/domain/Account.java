@@ -15,20 +15,15 @@ import java.util.UUID;
 @Table(name = "account")
 public class Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "account_id")
+    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "account_id")
     private UUID id;
 
     @Column(name = "username")
-    @NotBlank
-    @Size(max = 20)
+    @NotBlank @Size(max = 20)
     private String username;
 
     @Column(name = "mail")
-    @NotBlank
-    @Email
-    @Size(max = 50)
+    @NotBlank @Email @Size(max = 50)
     private String email;
 
     @Column(name = "account_password")
