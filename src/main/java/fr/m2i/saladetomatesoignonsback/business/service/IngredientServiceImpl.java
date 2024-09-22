@@ -2,8 +2,10 @@ package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
 import fr.m2i.saladetomatesoignonsback.business.service.mapper.IngredientMapper;
 import fr.m2i.saladetomatesoignonsback.persistence.IngredientRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -38,5 +40,10 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public int deleteById(UUID id) {
         return ingredientRepository.customDeleteById(id);
+    }
+
+    @Override
+    public Slice<IngredientFridgeDto> getFridgeByAccountId(UUID accountId, PageRequest pageRequest) {
+        return ingredientRepository.findFridgeByAccountId(accountId, pageRequest);
     }
 }
