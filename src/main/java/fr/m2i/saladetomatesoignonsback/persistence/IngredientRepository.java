@@ -26,7 +26,7 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
     // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto(
-                ai.ingredient.id,
+                i.id,
                 ai.quantity,
                 i.label,
                 i.vegetarian,
@@ -39,10 +39,10 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
                 u.id,
                 u.label
             )
-            FROM AccountIngredient ai
-            JOIN Ingredient i ON ai.ingredient.id = i.id
-            LEFT JOIN Animal a ON i.animal.id = a.id
-            JOIN Unit u ON i.unit.id = u.id
+            FROM Ingredient i
+            LEFT JOIN i.animal a
+            JOIN i.unit u
+            JOIN i.accountIngredients ai
             WHERE ai.account.id = :accountId
             """)
     Page<IngredientFridgeDto> findFridgeByAccountId(UUID accountId, Pageable pageable);
