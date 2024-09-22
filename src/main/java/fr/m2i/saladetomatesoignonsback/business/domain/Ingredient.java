@@ -12,7 +12,9 @@ import java.util.UUID;
 @Table(name = "ingredient")
 public class Ingredient {
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "ingredient_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "ingredient_id")
     private UUID id;
 
     @Column(name = "ingredient_label")
@@ -29,23 +31,6 @@ public class Ingredient {
 
     @Column(name = "lactose_free")
     private boolean lactoseFree;
-
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                ", vegetarian=" + vegetarian +
-                ", vegan=" + vegan +
-                ", glutenFree=" + glutenFree +
-                ", lactoseFree=" + lactoseFree +
-                ", calorie=" + calorie +
-                ", animal=" + animal +
-                ", unit=" + unit +
-                ", accounts=" + accounts +
-                ", accountIngredients=" + accountIngredients +
-                '}';
-    }
 
     @Column(name = "calorie")
     private int calorie;
@@ -132,4 +117,20 @@ public class Ingredient {
         return getClass().hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", vegetarian=" + vegetarian +
+                ", vegan=" + vegan +
+                ", glutenFree=" + glutenFree +
+                ", lactoseFree=" + lactoseFree +
+                ", calorie=" + calorie +
+                ", animal=" + animal +
+                ", unit=" + unit +
+                ", accounts=" + accounts +
+                ", accountIngredients=" + accountIngredients +
+                '}';
+    }
 }

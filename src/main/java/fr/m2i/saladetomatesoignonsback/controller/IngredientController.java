@@ -3,6 +3,7 @@ package fr.m2i.saladetomatesoignonsback.controller;
 import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
 import fr.m2i.saladetomatesoignonsback.business.service.IngredientService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -62,5 +63,16 @@ public class IngredientController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/fridge/{accountId}")
+    public ResponseEntity<List<IngredientFridgeDto>> getFridgeByAccountId(@PathVariable UUID accountId, Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                pageable.getSortOr(Sort.by(Sort.Direction.ASC, "ingredient.label"))
+        );
+        Slice<IngredientFridgeDto> slice =  ingredientService.getFridgeByAccountId(accountId, pageRequest);
+        return ResponseEntity.ok(slice.getContent());
     }
 }
