@@ -23,6 +23,12 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
     @Query(value = "DELETE FROM Ingredient i where i.id = :id")
     int customDeleteById(UUID id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO add_fridge(account_id, ingredient_id, add_fridge_quantity) VALUES (:accountId, :ingredientId, :quantity)",
+            nativeQuery = true)
+    int saveFridge(UUID accountId, UUID ingredientId, int quantity);
+
     // constructor expression
     @Query("""
             SELECT new fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto(

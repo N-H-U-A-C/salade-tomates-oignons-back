@@ -4,6 +4,7 @@ import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
 import fr.m2i.saladetomatesoignonsback.business.service.IngredientService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeSaveDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -73,5 +74,14 @@ public class IngredientController {
         );
         Slice<IngredientFridgeDto> slice = ingredientService.getFridgeByAccountId(accountId, pageRequest);
         return ResponseEntity.ok(slice);
+    }
+
+    @PostMapping("/{accountId}/fridge-ingredients")
+    public ResponseEntity<String> saveFridge(@RequestBody IngredientFridgeSaveDto ingredientFridgeSaveDto) {
+        if (ingredientService.saveFridge(ingredientFridgeSaveDto) > 0) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
