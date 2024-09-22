@@ -24,4 +24,6 @@ public interface IngredientService {
     Slice<IngredientFridgeDto> getFridgeByAccountId(UUID accountId, PageRequest pageRequest);
 
     int saveFridge(IngredientFridgeSaveDto ingredientFridgeSaveDto);
+
+    int deleteFridgeIngredientByAccountIdAndId(UUID accountId, UUID ingredientId);
 }
