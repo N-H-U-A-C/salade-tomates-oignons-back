@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,14 +26,14 @@ public class IngredientController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<IngredientDto>> getAllIngredientDto(Pageable pageable) {
+    public ResponseEntity<Slice<IngredientDto>> getAllIngredientDto(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
         Slice<IngredientDto> slice = ingredientService.getAllIngredientDto(pageRequest);
-        return ResponseEntity.ok(slice.getContent());
+        return ResponseEntity.ok(slice);
     }
 
     @GetMapping("/{id}")
@@ -66,13 +65,13 @@ public class IngredientController {
     }
 
     @GetMapping("/fridge/{accountId}")
-    public ResponseEntity<List<IngredientFridgeDto>> getFridgeByAccountId(@PathVariable UUID accountId, Pageable pageable) {
+    public ResponseEntity<Slice<IngredientFridgeDto>> getFridgeByAccountId(@PathVariable UUID accountId, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "ingredient.label"))
         );
-        Slice<IngredientFridgeDto> slice =  ingredientService.getFridgeByAccountId(accountId, pageRequest);
-        return ResponseEntity.ok(slice.getContent());
+        Slice<IngredientFridgeDto> slice = ingredientService.getFridgeByAccountId(accountId, pageRequest);
+        return ResponseEntity.ok(slice);
     }
 }
