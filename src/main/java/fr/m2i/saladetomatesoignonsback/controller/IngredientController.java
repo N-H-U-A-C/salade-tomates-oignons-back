@@ -85,4 +85,14 @@ public class IngredientController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{accountId}/fridge-ingredients/{ingredientId}")
+    public ResponseEntity<Void> deleteFridgeIngredientByAccountId(@PathVariable UUID accountId, @PathVariable UUID ingredientId) {
+        if (ingredientService.deleteFridgeIngredientByAccountIdAndId(accountId, ingredientId) > 0) {
+            // create a 204 response with empty body as internet standard RFC 9110
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
