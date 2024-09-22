@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Optional;
 import java.util.UUID;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/v1/animals")
 public class AnimalController {
