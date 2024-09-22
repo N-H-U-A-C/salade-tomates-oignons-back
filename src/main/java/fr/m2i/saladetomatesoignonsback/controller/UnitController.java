@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,14 +25,14 @@ public class UnitController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<UnitDto>> getAllUnitDto(Pageable pageable) {
+    public ResponseEntity<Slice<UnitDto>> getAllUnitDto(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
         Slice<UnitDto> slice = unitService.getAllUnitDto(pageRequest);
-        return ResponseEntity.ok(slice.getContent());
+        return ResponseEntity.ok(slice);
     }
 
     @GetMapping("/{id}")

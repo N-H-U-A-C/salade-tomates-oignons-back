@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,14 +27,14 @@ public class AccountController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<AccountDto>> getAccountDtoAll(Pageable pageable) {
+    public ResponseEntity<Slice<AccountDto>> getAccountDtoAll(Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "username"))
         );
         Slice<AccountDto> slice = accountService.getAccountDtoAll(pageRequest);
-        return ResponseEntity.ok(slice.getContent());
+        return ResponseEntity.ok(slice);
     }
 
     @GetMapping("/{id}")
