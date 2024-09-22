@@ -3,6 +3,7 @@ package fr.m2i.saladetomatesoignonsback.business.service;
 import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeSaveDto;
 import fr.m2i.saladetomatesoignonsback.business.service.mapper.IngredientMapper;
 import fr.m2i.saladetomatesoignonsback.persistence.IngredientRepository;
 import org.springframework.data.domain.PageRequest;
@@ -45,5 +46,10 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Slice<IngredientFridgeDto> getFridgeByAccountId(UUID accountId, PageRequest pageRequest) {
         return ingredientRepository.findFridgeByAccountId(accountId, pageRequest);
+    }
+
+    @Override
+    public int saveFridge(IngredientFridgeSaveDto ingredientFridgeSaveDto) {
+        return ingredientRepository.saveFridge(ingredientFridgeSaveDto.accountId(), ingredientFridgeSaveDto.ingredientId(), ingredientFridgeSaveDto.quantity());
     }
 }
