@@ -1,26 +1,22 @@
 package fr.m2i.saladetomatesoignonsback.persistence;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Ingredient;
-import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
-import jakarta.persistence.criteria.From;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, PagingAndSortingRepository<Ingredient, UUID> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM Ingredient i where i.id = :id")
+    @Query(value = "DELETE FROM Ingredient i WHERE i.id = :id")
     int customDeleteById(UUID id);
 
     @Transactional
@@ -28,6 +24,11 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
     @Query(value = "INSERT INTO add_fridge(account_id, ingredient_id, add_fridge_quantity) VALUES (:accountId, :ingredientId, :quantity)",
             nativeQuery = true)
     int saveFridge(UUID accountId, UUID ingredientId, int quantity);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM AccountIngredient ai WHERE ai.account.id = :accountId AND ai.ingredient.id = :ingredientId")
+    int deleteFridgeIngredientByAccountIdAndId(UUID accountId, UUID ingredientId);
 
     // constructor expression
     @Query("""
