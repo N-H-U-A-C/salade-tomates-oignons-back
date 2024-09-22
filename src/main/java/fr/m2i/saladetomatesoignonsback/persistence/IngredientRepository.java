@@ -23,7 +23,7 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
     @Modifying
     @Query(value = "INSERT INTO add_fridge(account_id, ingredient_id, add_fridge_quantity) VALUES (:accountId, :ingredientId, :quantity)",
             nativeQuery = true)
-    int saveFridge(UUID accountId, UUID ingredientId, int quantity);
+    int saveFridgeIngredientByAccountId(UUID accountId, UUID ingredientId, int quantity);
 
     @Transactional
     @Modifying
@@ -52,5 +52,5 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
             JOIN i.accountIngredients ai
             WHERE ai.account.id = :accountId
             """)
-    Page<IngredientFridgeDto> findFridgeByAccountId(UUID accountId, Pageable pageable);
+    Page<IngredientFridgeDto> findFridgeIngredientByAccountId(UUID accountId, Pageable pageable);
 }

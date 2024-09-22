@@ -44,13 +44,13 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Slice<IngredientFridgeDto> getFridgeByAccountId(UUID accountId, PageRequest pageRequest) {
-        return ingredientRepository.findFridgeByAccountId(accountId, pageRequest);
+    public Slice<IngredientFridgeDto> getFridgeIngredientByAccountId(UUID accountId, PageRequest pageRequest) {
+        return ingredientRepository.findFridgeIngredientByAccountId(accountId, pageRequest);
     }
 
     @Override
-    public int saveFridge(IngredientFridgeSaveDto ingredientFridgeSaveDto) {
-        return ingredientRepository.saveFridge(ingredientFridgeSaveDto.accountId(), ingredientFridgeSaveDto.ingredientId(), ingredientFridgeSaveDto.quantity());
+    public int saveFridgeIngredientByAccountId(IngredientFridgeSaveDto ingredientFridgeSaveDto) {
+        return ingredientRepository.saveFridgeIngredientByAccountId(ingredientFridgeSaveDto.accountId(), ingredientFridgeSaveDto.ingredientId(), ingredientFridgeSaveDto.quantity());
     }
 
     @Override

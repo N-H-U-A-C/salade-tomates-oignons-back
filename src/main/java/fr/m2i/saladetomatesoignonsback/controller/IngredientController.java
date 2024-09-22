@@ -67,19 +67,19 @@ public class IngredientController {
     }
 
     @GetMapping("/{accountId}/fridge-ingredients")
-    public ResponseEntity<Slice<IngredientFridgeDto>> getFridgeByAccountId(@PathVariable UUID accountId, Pageable pageable) {
+    public ResponseEntity<Slice<IngredientFridgeDto>> getFridgeIngredientByAccountId(@PathVariable UUID accountId, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
                 pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
-        Slice<IngredientFridgeDto> slice = ingredientService.getFridgeByAccountId(accountId, pageRequest);
+        Slice<IngredientFridgeDto> slice = ingredientService.getFridgeIngredientByAccountId(accountId, pageRequest);
         return ResponseEntity.ok(slice);
     }
 
     @PostMapping("/{accountId}/fridge-ingredients")
-    public ResponseEntity<String> saveFridge(@RequestBody IngredientFridgeSaveDto ingredientFridgeSaveDto) {
-        if (ingredientService.saveFridge(ingredientFridgeSaveDto) > 0) {
+    public ResponseEntity<String> saveFridgeIngredientByAccountId(@RequestBody IngredientFridgeSaveDto ingredientFridgeSaveDto) {
+        if (ingredientService.saveFridgeIngredientByAccountId(ingredientFridgeSaveDto) > 0) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -87,7 +87,7 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{accountId}/fridge-ingredients/{ingredientId}")
-    public ResponseEntity<Void> deleteFridgeIngredientByAccountId(@PathVariable UUID accountId, @PathVariable UUID ingredientId) {
+    public ResponseEntity<Void> deleteFridgeIngredientByAccountIdAndId(@PathVariable UUID accountId, @PathVariable UUID ingredientId) {
         if (ingredientService.deleteFridgeIngredientByAccountIdAndId(accountId, ingredientId) > 0) {
             // create a 204 response with empty body as internet standard RFC 9110
             return ResponseEntity.noContent().build();
