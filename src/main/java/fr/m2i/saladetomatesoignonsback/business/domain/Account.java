@@ -1,10 +1,7 @@
 package fr.m2i.saladetomatesoignonsback.business.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.UUID;
 
@@ -40,6 +37,18 @@ public class Account {
     @Size(max = 500)
     private String avatar;
 
+    @Column(name = "vegetarian")
+    boolean vegetarian;
+
+    @Column(name = "vegan")
+    boolean vegan;
+
+    @Column(name = "gluten_free")
+    boolean glutenFree;
+
+    @Column(name = "lactose_free")
+    boolean lactoseFree;
+
     @Column(name = "account_admin")
     private boolean admin;
 
@@ -71,6 +80,22 @@ public class Account {
         return avatar;
     }
 
+    public boolean isVegetarian() {
+        return vegetarian;
+    }
+
+    public boolean isVegan() {
+        return vegan;
+    }
+
+    public boolean isGlutenFree() {
+        return glutenFree;
+    }
+
+    public boolean isLactoseFree() {
+        return lactoseFree;
+    }
+
     public boolean isAdmin() {
         return admin;
     }
@@ -97,6 +122,10 @@ public class Account {
                 ", password='" + password + '\'' +
                 ", defaultServing=" + defaultServing +
                 ", avatar='" + avatar + '\'' +
+                ", vegetarian=" + vegetarian +
+                ", vegan=" + vegan +
+                ", glutenFree=" + glutenFree +
+                ", lactoseFree=" + lactoseFree +
                 ", admin=" + admin +
                 '}';
     }
