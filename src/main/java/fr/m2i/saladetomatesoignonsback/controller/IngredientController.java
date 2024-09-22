@@ -64,12 +64,12 @@ public class IngredientController {
         }
     }
 
-    @GetMapping("/fridge/{accountId}")
+    @GetMapping("/{accountId}/fridge-ingredients")
     public ResponseEntity<Slice<IngredientFridgeDto>> getFridgeByAccountId(@PathVariable UUID accountId, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
-                pageable.getSortOr(Sort.by(Sort.Direction.ASC, "ingredient.label"))
+                pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
         );
         Slice<IngredientFridgeDto> slice = ingredientService.getFridgeByAccountId(accountId, pageRequest);
         return ResponseEntity.ok(slice);
