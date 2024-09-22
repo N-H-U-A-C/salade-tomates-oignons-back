@@ -3,6 +3,7 @@ package fr.m2i.saladetomatesoignonsback.controller;
 import fr.m2i.saladetomatesoignonsback.business.domain.Recipe;
 import fr.m2i.saladetomatesoignonsback.business.service.RecipeService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.RecipeDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.RecipeShortDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -61,5 +62,16 @@ public class RecipeController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{accountId}/doable-recipes")
+    public ResponseEntity<Slice<RecipeShortDto>> getAllDoableRecipesByAccountId(@PathVariable UUID accountId, Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
+        );
+        Slice<RecipeShortDto> slice = recipeService.getAllDoableRecipesByAccountId(accountId, pageRequest);
+        return ResponseEntity.ok(slice);
     }
 }

@@ -2,6 +2,8 @@ package fr.m2i.saladetomatesoignonsback.business.service;
 
 import fr.m2i.saladetomatesoignonsback.business.domain.Recipe;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.RecipeDto;
+import fr.m2i.saladetomatesoignonsback.business.service.dto.RecipeShortDto;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
@@ -17,4 +19,6 @@ public interface RecipeService {
     Recipe saveOrUpdate(Recipe recipe);
 
     int deleteById(UUID id);
+
+    Slice<RecipeShortDto> getAllDoableRecipesByAccountId(UUID accountId, PageRequest pageRequest);
 }
