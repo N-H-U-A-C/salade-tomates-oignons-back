@@ -66,7 +66,7 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<AccountLoggedDto> logIn(@RequestBody AccountLogInDto accountLogInDto) {
         Optional<AccountLoggedDto> optionalAccountLoggedDto = accountService.logIn(accountLogInDto);
         return optionalAccountLoggedDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
