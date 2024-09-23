@@ -3,6 +3,9 @@ package fr.m2i.saladetomatesoignonsback.business.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,27 +15,31 @@ import java.util.UUID;
 @Table(name = "ingredient")
 public class Ingredient {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "ingredient_id")
+    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "ingredient_id")
     private UUID id;
 
     @Column(name = "ingredient_label")
+    @NotBlank @Size(max = 30)
     private String label;
 
     @Column(name = "vegetarian")
+    @NotNull
     private boolean vegetarian;
 
     @Column(name = "vegan")
+    @NotNull
     private boolean vegan;
 
     @Column(name = "gluten_free")
+    @NotNull
     private boolean glutenFree;
 
     @Column(name = "lactose_free")
+    @NotNull
     private boolean lactoseFree;
 
     @Column(name = "calorie")
+    @NotNull
     private int calorie;
 
     @ManyToOne
@@ -63,26 +70,31 @@ public class Ingredient {
         return id;
     }
 
-    public String getLabel() {
+    public @NotBlank @Size(max = 30) String getLabel() {
         return label;
     }
 
+    @NotNull
     public boolean isVegetarian() {
         return vegetarian;
     }
 
+    @NotNull
     public boolean isVegan() {
         return vegan;
     }
 
+    @NotNull
     public boolean isGlutenFree() {
         return glutenFree;
     }
 
+    @NotNull
     public boolean isLactoseFree() {
         return lactoseFree;
     }
 
+    @NotNull
     public int getCalorie() {
         return calorie;
     }

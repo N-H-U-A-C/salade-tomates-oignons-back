@@ -5,6 +5,8 @@ import fr.m2i.saladetomatesoignonsback.business.service.AccountService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountLogInDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AccountLoggedDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -39,25 +41,25 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AccountDto> getAccountDtoById(@PathVariable UUID id) {
+    public ResponseEntity<AccountDto> getAccountDtoById(@PathVariable @NotNull UUID id) {
         Optional<AccountDto> optionalAccountDto = accountService.getAccountDtoById(id);
         return optionalAccountDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@RequestBody Account account) {
+    public ResponseEntity<Void> save(@Valid @RequestBody Account account) {
         Account savedAccount = accountService.saveOrUpdate(account);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAccount.getId()).toUri()).build();
     }
 
     @PutMapping()
-    public ResponseEntity<Account> update(@RequestBody Account account) {
+    public ResponseEntity<Account> update(@Valid @RequestBody Account account) {
         return ResponseEntity.ok(accountService.saveOrUpdate(account));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteById(@PathVariable @NotNull UUID id) {
         if (accountService.deleteById(id) > 0) {
             // create a 204 response with empty body as internet standard RFC 9110
             return ResponseEntity.noContent().build();

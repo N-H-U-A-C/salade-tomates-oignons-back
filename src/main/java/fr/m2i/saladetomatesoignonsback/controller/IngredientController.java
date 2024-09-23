@@ -5,6 +5,8 @@ import fr.m2i.saladetomatesoignonsback.business.service.IngredientService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeSaveDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -39,7 +41,7 @@ public class IngredientController {
     }
 
     @GetMapping("/{label}/ingredients")
-    public ResponseEntity<Slice<IngredientDto>> getAllIngredientDtoByLabel(@PathVariable String label, Pageable pageable) {
+    public ResponseEntity<Slice<IngredientDto>> getAllIngredientDtoByLabel(@PathVariable @NotNull String label, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
@@ -50,25 +52,25 @@ public class IngredientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IngredientDto> getIngredientDtoById(@PathVariable UUID id) {
+    public ResponseEntity<IngredientDto> getIngredientDtoById(@PathVariable @NotNull UUID id) {
         Optional<IngredientDto> optionalIngredientDto = ingredientService.getIngredientDtoById(id);
         return optionalIngredientDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@RequestBody Ingredient ingredient) {
+    public ResponseEntity<Void> save(@Valid @RequestBody Ingredient ingredient) {
         Ingredient savedIngredient = ingredientService.saveOrUpdate(ingredient);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedIngredient.getId()).toUri()).build();
     }
 
     @PutMapping()
-    public ResponseEntity<Ingredient> update(@RequestBody Ingredient ingredient) {
+    public ResponseEntity<Ingredient> update(@Valid @RequestBody Ingredient ingredient) {
         return ResponseEntity.ok(ingredientService.saveOrUpdate(ingredient));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteById(@PathVariable @NotNull UUID id) {
         if (ingredientService.deleteById(id) > 0) {
             // create a 204 response with empty body as internet standard RFC 9110
             return ResponseEntity.noContent().build();
@@ -78,7 +80,7 @@ public class IngredientController {
     }
 
     @GetMapping("/{accountId}/fridge-ingredients")
-    public ResponseEntity<Slice<IngredientFridgeDto>> getFridgeIngredientByAccountId(@PathVariable UUID accountId, Pageable pageable) {
+    public ResponseEntity<Slice<IngredientFridgeDto>> getFridgeIngredientByAccountId(@PathVariable @NotNull UUID accountId, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(
                 pageable.getPageNumber(),
                 pageable.getPageSize(),
@@ -98,7 +100,7 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{accountId}/fridge-ingredients/{ingredientId}")
-    public ResponseEntity<Void> deleteFridgeIngredientByAccountIdAndId(@PathVariable UUID accountId, @PathVariable UUID ingredientId) {
+    public ResponseEntity<Void> deleteFridgeIngredientByAccountIdAndId(@PathVariable @NotNull UUID accountId, @PathVariable @NotNull UUID ingredientId) {
         if (ingredientService.deleteFridgeIngredientByAccountIdAndId(accountId, ingredientId) > 0) {
             // create a 204 response with empty body as internet standard RFC 9110
             return ResponseEntity.noContent().build();

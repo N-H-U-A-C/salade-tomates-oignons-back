@@ -1,6 +1,8 @@
 package fr.m2i.saladetomatesoignonsback.business.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -9,12 +11,11 @@ import java.util.UUID;
 @Table(name = "animal")
 public class Animal {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "animal_id")
+    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "animal_id")
     private UUID id;
 
     @Column(name = "animal_label")
+    @NotBlank @Size(max = 20)
     private String label;
 
     public Animal() {
@@ -33,7 +34,7 @@ public class Animal {
         return id;
     }
 
-    public String getLabel() {
+    public @NotBlank @Size(max = 20) String getLabel() {
         return label;
     }
 
