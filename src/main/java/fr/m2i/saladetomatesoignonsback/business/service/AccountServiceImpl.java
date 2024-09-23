@@ -46,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Optional<AccountLoggedDto> logIn(AccountLogInDto accountLogInDto) {
         String hash = HashUtil.toMd5(accountLogInDto.password());
-        System.out.println(hash);
-        return accountRepository.findByUsernameAndPassword(accountLogInDto.username(), hash).map(AccountMapper.INSTANCE::toAccountLoggedDto);
+        return accountRepository.findByUsernameAndPassword(accountLogInDto.username(), hash)
+                .map(AccountMapper.INSTANCE::toAccountLoggedDto);
     }
 }
