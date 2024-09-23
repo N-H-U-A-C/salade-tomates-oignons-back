@@ -5,14 +5,18 @@ import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, PagingAndSortingRepository<Ingredient, UUID> {
+
+    Page<Ingredient> findAllByLabelIsContainingIgnoreCase(String label, Pageable pageable);
 
     @Transactional
     @Modifying
