@@ -45,7 +45,7 @@ public class AnimalController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@Valid @RequestBody Animal animal) {
+    public ResponseEntity<Void> create(@Valid @RequestBody Animal animal) {
         Animal savedAnimal = animalService.saveOrUpdate(animal);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAnimal.getId()).toUri()).build();

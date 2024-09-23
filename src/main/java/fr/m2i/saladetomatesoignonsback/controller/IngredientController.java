@@ -58,7 +58,7 @@ public class IngredientController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@Valid @RequestBody Ingredient ingredient) {
+    public ResponseEntity<Void> create(@Valid @RequestBody Ingredient ingredient) {
         Ingredient savedIngredient = ingredientService.saveOrUpdate(ingredient);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedIngredient.getId()).toUri()).build();
@@ -91,8 +91,8 @@ public class IngredientController {
     }
 
     @PostMapping("/{accountId}/fridge-ingredients")
-    public ResponseEntity<String> saveFridgeIngredientByAccountId(@RequestBody IngredientFridgeSaveDto ingredientFridgeSaveDto) {
-        if (ingredientService.saveFridgeIngredientByAccountId(ingredientFridgeSaveDto) > 0) {
+    public ResponseEntity<String> createFridgeIngredientByAccountId(@RequestBody IngredientFridgeSaveDto ingredientFridgeSaveDto) {
+        if (ingredientService.createFridgeIngredientByAccountId(ingredientFridgeSaveDto) > 0) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
