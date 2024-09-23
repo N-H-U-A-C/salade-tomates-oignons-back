@@ -15,6 +15,8 @@ public interface IngredientService {
 
     Slice<IngredientDto> getAllIngredientDto(Pageable pageable);
 
+    Slice<IngredientDto> getAllIngredientDtoByLabel(String label, Pageable pageable);
+
     Optional<IngredientDto> getIngredientDtoById(UUID id);
 
     Ingredient saveOrUpdate(Ingredient ingredient);

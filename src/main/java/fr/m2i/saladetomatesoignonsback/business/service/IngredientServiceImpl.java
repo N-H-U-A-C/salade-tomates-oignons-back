@@ -29,6 +29,11 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    public Slice<IngredientDto> getAllIngredientDtoByLabel(String label, Pageable pageable) {
+        return ingredientRepository.findAllByLabelIsContainingIgnoreCase(label, pageable).map(IngredientMapper.INSTANCE::toIngredientDto);
+    }
+
+    @Override
     public Optional<IngredientDto> getIngredientDtoById(UUID id) {
         return ingredientRepository.findById(id).map(IngredientMapper.INSTANCE::toIngredientDto);
     }
