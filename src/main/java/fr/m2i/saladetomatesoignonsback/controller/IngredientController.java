@@ -38,10 +38,21 @@ public class IngredientController {
         return ResponseEntity.ok(slice);
     }
 
+    @GetMapping("/{label}/ingredients")
+    public ResponseEntity<Slice<IngredientDto>> getAllIngredientDtoByLabel(@PathVariable String label, Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                pageable.getSortOr(Sort.by(Sort.Direction.ASC, "label"))
+        );
+        Slice<IngredientDto> slice = ingredientService.getAllIngredientDtoByLabel(label, pageRequest);
+        return ResponseEntity.ok(slice);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<IngredientDto> getIngredientDtoById(@PathVariable UUID id) {
-        Optional<IngredientDto> optionalIngredient = ingredientService.getIngredientDtoById(id);
-        return optionalIngredient.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<IngredientDto> optionalIngredientDto = ingredientService.getIngredientDtoById(id);
+        return optionalIngredientDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
