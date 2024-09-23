@@ -5,13 +5,11 @@ import fr.m2i.saladetomatesoignonsback.business.service.dto.IngredientFridgeDto;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, PagingAndSortingRepository<Ingredient, UUID> {
@@ -27,7 +25,7 @@ public interface IngredientRepository extends CrudRepository<Ingredient, UUID>, 
     @Modifying
     @Query(value = "INSERT INTO add_fridge(account_id, ingredient_id, add_fridge_quantity) VALUES (:accountId, :ingredientId, :quantity)",
             nativeQuery = true)
-    int saveFridgeIngredientByAccountId(UUID accountId, UUID ingredientId, int quantity);
+    int createFridgeIngredientByAccountId(UUID accountId, UUID ingredientId, int quantity);
 
     @Transactional
     @Modifying

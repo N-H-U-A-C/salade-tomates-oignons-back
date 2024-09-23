@@ -47,7 +47,7 @@ public class AccountController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@Valid @RequestBody Account account) {
+    public ResponseEntity<Void> create(@Valid @RequestBody Account account) {
         Account savedAccount = accountService.saveOrUpdate(account);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAccount.getId()).toUri()).build();

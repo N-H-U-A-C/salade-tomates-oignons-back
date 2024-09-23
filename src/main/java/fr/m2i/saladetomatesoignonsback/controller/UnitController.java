@@ -45,7 +45,7 @@ public class UnitController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@Valid @RequestBody Unit unit) {
+    public ResponseEntity<Void> create(@Valid @RequestBody Unit unit) {
         Unit savedUnit = unitService.saveOrUpdate(unit);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUnit.getId()).toUri()).build();

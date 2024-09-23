@@ -54,8 +54,8 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public int saveFridgeIngredientByAccountId(IngredientFridgeSaveDto ingredientFridgeSaveDto) {
-        return ingredientRepository.saveFridgeIngredientByAccountId(ingredientFridgeSaveDto.accountId(), ingredientFridgeSaveDto.ingredientId(), ingredientFridgeSaveDto.quantity());
+    public int createFridgeIngredientByAccountId(IngredientFridgeSaveDto ingredientFridgeSaveDto) {
+        return ingredientRepository.createFridgeIngredientByAccountId(ingredientFridgeSaveDto.accountId(), ingredientFridgeSaveDto.ingredientId(), ingredientFridgeSaveDto.quantity());
     }
 
     @Override

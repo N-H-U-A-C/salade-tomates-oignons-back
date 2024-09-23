@@ -46,7 +46,7 @@ public class RecipeController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@Valid @RequestBody Recipe recipe) {
+    public ResponseEntity<Void> create(@Valid @RequestBody Recipe recipe) {
         Recipe savedRecipe = recipeService.saveOrUpdate(recipe);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedRecipe.getId()).toUri()).build();
