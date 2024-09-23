@@ -29,7 +29,6 @@ public class Recipe {
     private String instruction;
 
     @Column(name = "duration")
-    @Positive
     private int duration;
 
     @Column(name = "recipe_picture")
@@ -71,7 +70,6 @@ public class Recipe {
         return instruction;
     }
 
-    @Positive
     public int getDuration() {
         return duration;
     }
@@ -80,12 +78,12 @@ public class Recipe {
         return picture;
     }
 
-    public List<RecipeIngredient> getRecipeIngredients() {
-        return recipeIngredients;
-    }
-
     public Account getAccount() {
         return account;
+    }
+
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
     }
 
     public List<AccountRecipe> getAccountRecipes() {

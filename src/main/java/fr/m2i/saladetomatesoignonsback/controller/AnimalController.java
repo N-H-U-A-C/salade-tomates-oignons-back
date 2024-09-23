@@ -3,6 +3,8 @@ package fr.m2i.saladetomatesoignonsback.controller;
 import fr.m2i.saladetomatesoignonsback.business.domain.Animal;
 import fr.m2i.saladetomatesoignonsback.business.service.AnimalService;
 import fr.m2i.saladetomatesoignonsback.business.service.dto.AnimalDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -37,25 +39,25 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AnimalDto> getAnimalDtoById(@PathVariable UUID id) {
+    public ResponseEntity<AnimalDto> getAnimalDtoById(@PathVariable @NotNull UUID id) {
         Optional<AnimalDto> optionalAnimalDto = animalService.getAnimalDtoById(id);
         return optionalAnimalDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping()
-    public ResponseEntity<Void> save(@RequestBody Animal animal) {
+    public ResponseEntity<Void> save(@Valid @RequestBody Animal animal) {
         Animal savedAnimal = animalService.saveOrUpdate(animal);
         // create a 201 response with the location of the resource created as internet standard RFC 9110
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedAnimal.getId()).toUri()).build();
     }
 
     @PutMapping()
-    public ResponseEntity<Animal> update(@RequestBody Animal animal) {
+    public ResponseEntity<Animal> update(@Valid @RequestBody Animal animal) {
         return ResponseEntity.ok(animalService.saveOrUpdate(animal));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteById(@PathVariable @NotNull UUID id) {
         if (animalService.deleteById(id) > 0) {
             // create a 204 response with empty body as internet standard RFC 9110
             return ResponseEntity.noContent().build();

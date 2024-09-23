@@ -30,10 +30,10 @@ public class Account {
     private String password;
 
     @Column(name = "default_serving")
-    @Min(1)
     private int defaultServing;
 
     @Column(name = "avatar")
+
     @Size(max = 500)
     private String avatar;
 
@@ -71,7 +71,6 @@ public class Account {
         return password;
     }
 
-    @Min(1)
     public int getDefaultServing() {
         return defaultServing;
     }
