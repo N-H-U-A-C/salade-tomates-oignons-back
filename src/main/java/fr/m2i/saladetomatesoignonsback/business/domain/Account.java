@@ -1,5 +1,6 @@
 package fr.m2i.saladetomatesoignonsback.business.domain;
 
+import fr.m2i.saladetomatesoignonsback.utils.HashUtil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -97,6 +98,10 @@ public class Account {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public void hashPassword() {
+        password = HashUtil.toMd5(password);
     }
 
     @Override

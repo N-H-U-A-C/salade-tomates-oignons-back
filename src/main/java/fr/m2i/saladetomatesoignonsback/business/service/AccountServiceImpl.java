@@ -35,6 +35,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account saveOrUpdate(Account account) {
+        account.hashPassword();
         return accountRepository.save(account);
     }
 
